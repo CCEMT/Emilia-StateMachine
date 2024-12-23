@@ -1,0 +1,27 @@
+#outputArrow {
+    margin-top: -8px;
+    margin-left: -8px;
+    height: 16px;
+    width: 16px;
+}
+
+#outputArrows {
+    margin-top: -8px;
+    margin-left: -16px;
+    height: 16px;
+    width: 32px;
+}
+
+#inputArrow {
+    margin-top: -8px;
+    margin-left: -8px;
+    height: 16px;
+    width: 16px;
+}
+
+#inputArrows {
+    margin-top: -8px;
+    margin-left: -16px;
+    height: 16px;
+    width: 32px;
+}
