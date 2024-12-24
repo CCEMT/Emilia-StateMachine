@@ -1,0 +1,10 @@
+{
+  "name": "com.emilia.statemachine",
+  "displayName": "Emilia.StateMachine",
+  "description": "Emilia.StateMachine",
+  "version": "1.0.0",
+  "unity": "2021.3",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
