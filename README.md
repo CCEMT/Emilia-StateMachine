@@ -2,6 +2,8 @@
 
 Emilia-StateMachine是基于Emilia-NodeEditor实现的状态机节点编辑器
 
+![](./doc/stateMachine-image.png)
+
 # 特点
 
 运行时和编辑器分离  
@@ -36,8 +38,8 @@ Odin版本：3.1.2+
 
 # 例子
 
-基于Emilia-StateMachine实现Spine的动画状态机[SpineAnimator](https://github.com/CCEMT/Emilia-SpineAnimator)  
-![](./doc/stateMachine-image.png)
+基于Emilia-StateMachine实现Spine的动画状态机 [SpineAnimator](https://github.com/CCEMT/Emilia-SpineAnimator)  
+![](./doc/spineAnimator.gif)
 
 # 开始
 
@@ -59,8 +61,8 @@ public class EditorSpineAnimatorAsset : EditorStateMachineAsset
 ~~~
 
 outputFilePath 运行时文件最终保存的路径  
-stateComponentSubTypes 状态组件的基类，用于过滤菜单  
-conditionSubTypes 条件的基类，用于过滤菜单  
+stateComponentSubTypes 状态组件的基类，用于状态中创建组件时的过滤菜单  
+conditionSubTypes 条件的基类，用于转换中创建条件时的过滤菜单  
 
 ### 创建状态组件基类
 
