@@ -1,6 +1,6 @@
 # Emilia-StateMachine
 
-Emilia-StateMachine是基于Emilia-NodeEditor实现的状态机节点编辑器
+Emilia-StateMachine是基于[Emilia-NodeEditor](https://github.com/CCEMT/Emilia-NodeEditor)实现的状态机节点编辑器
 
 ![](./doc/stateMachine-image.png)
 
