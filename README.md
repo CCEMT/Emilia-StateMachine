@@ -154,6 +154,10 @@ public class PlayAnimationComponent : SpineAnimatorComponent<PlayAnimationCompon
 }
 ~~~
 
+## WIKI
+
+[WIKI-Home](https://github.com/CCEMT/Emilia-StateMachine/wiki)
+
 ## 联系
 
 email：1076995595@qq.com  
