@@ -2,9 +2,9 @@
 
 Emilia-StateMachine是基于[Emilia-NodeEditor](https://github.com/CCEMT/Emilia-NodeEditor)实现的状态机节点编辑器
 
-![](./doc/stateMachine-image.png)
+![stateMachine](./doc/stateMachine-image.png)
 
-# 特点
+## 特点
 
 运行时和编辑器分离  
 组件式状态机  
@@ -12,7 +12,8 @@ Emilia-StateMachine是基于[Emilia-NodeEditor](https://github.com/CCEMT/Emilia-
 热重载  
 子状态机实现  
 
-# 安装
+## 安装
+
 Unity版本：2021.3+  
 Odin版本：3.1.2+  
 
@@ -30,24 +31,24 @@ Odin版本：3.1.2+
 
 将以下内容添加进manifest文件中
 
-~~~
+~~~json
 "com.emilia.kit": "https://github.com/CCEMT/Emilia-Kit.git?path=Assets/Emilia/Kit",
 "com.emilia.node.editor": "https://github.com/CCEMT/Emilia-NodeEditor.git?path=Assets/Emilia/Node.Editor",
 "com.emilia.statemachine": "https://github.com/CCEMT/Emilia-StateMachine.git?path=Assets/Emilia/StateMachine"
 ~~~
 
-# 例子
+## 例子
 
 基于Emilia-StateMachine实现Spine的动画状态机 [SpineAnimator](https://github.com/CCEMT/Emilia-SpineAnimator)  
-![](./doc/spineAnimator.gif)
+![spineAnimator](./doc/spineAnimator.gif)
 
-# 开始
+## 开始
 
 以下为例子中的实现
 
 ### 创建编辑器文件
 
-~~~
+~~~csharp
 [CreateAssetMenu(menuName = "Emilia/SpineAnimator/EditorSpineAnimatorAsset", fileName = "EditorSpineAnimatorAsset")]
 public class EditorSpineAnimatorAsset : EditorStateMachineAsset
 {
@@ -66,7 +67,7 @@ conditionSubTypes 条件的基类，用于转换中创建条件时的过滤菜�
 
 ### 创建状态组件基类
 
-~~~
+~~~csharp
 public interface ISpineAnimatorComponentAsset { }
 
 public abstract class SpineAnimatorComponentAsset<T> : StateComponentAsset<T>, ISpineAnimatorComponentAsset where T : class, IStateComponent, new() { }
@@ -85,7 +86,7 @@ public abstract class SpineAnimatorComponent<T> : StateComponent<T> where T : cl
 
 ### 创建条件基类
 
-~~~
+~~~csharp
 public interface ISpineAnimatorConditionAsset { }
 
 public abstract class SpineAnimatorConditionAsset<T> : ConditionAsset<T>, ISpineAnimatorConditionAsset where T : class, ICondition, new() { }
@@ -93,10 +94,9 @@ public abstract class SpineAnimatorConditionAsset<T> : ConditionAsset<T>, ISpine
 public abstract class SpineAnimatorCondition<T> : Condition<T> where T : class, IConditionAsset { }
 ~~~
 
-
 ### 运行
 
-~~~
+~~~csharp
 //创建加载器
 StateMachineLoader stateMachineLoader = new StateMachineLoader();
 stateMachineLoader.runtimeFilePath = "Assets/..";
@@ -115,7 +115,8 @@ runner.Init(fileName, stateMachineLoader, skeletonAnimation);
 ~~~
 
 ### 生命周期
-~~~
+
+~~~csharp
 runner.Start();//开始运行
 runner.Update();//更新
 runner.Dispose();//停止运行
@@ -123,7 +124,7 @@ runner.Dispose();//停止运行
 
 ### 拓展
 
-~~~
+~~~csharp
 //组件的拓展
 //StateMachineTitle为菜单项
 //需要序列化保存的放进Asset中
@@ -153,8 +154,7 @@ public class PlayAnimationComponent : SpineAnimatorComponent<PlayAnimationCompon
 }
 ~~~
 
-
-# 联系
+## 联系
 
 email：1076995595@qq.com  
 QQ群：956223592  
