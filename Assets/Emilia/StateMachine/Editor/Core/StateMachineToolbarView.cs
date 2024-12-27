@@ -12,14 +12,6 @@ namespace Emilia.StateMachine.Editor
 {
     public class StateMachineToolbarView : ToolbarView
     {
-        private EditorStateMachineAsset stateMachineAsset;
-
-        public override void Initialize(EditorGraphView graphView)
-        {
-            stateMachineAsset = graphView.graphAsset as EditorStateMachineAsset;
-            base.Initialize(graphView);
-        }
-
         protected override void InitControls()
         {
             AddControl(new ButtonToolbarViewControl("参数", OnEditorParameter));
@@ -37,11 +29,12 @@ namespace Emilia.StateMachine.Editor
 
         private void OnEditorParameter()
         {
+            EditorStateMachineAsset stateMachineAsset = this.graphView.graphAsset as EditorStateMachineAsset;
             EditorParametersManage editorParametersManage = stateMachineAsset.editorParametersManage;
             if (editorParametersManage == null)
             {
                 editorParametersManage = stateMachineAsset.editorParametersManage = ScriptableObject.CreateInstance<EditorParametersManage>();
-                EditorAssetKit.SaveAssetIntoObject(editorParametersManage, this.stateMachineAsset);
+                EditorAssetKit.SaveAssetIntoObject(editorParametersManage, stateMachineAsset);
             }
 
             Selection.activeObject = editorParametersManage;
@@ -59,6 +52,8 @@ namespace Emilia.StateMachine.Editor
 
         private OdinMenu BuildRunnerMenu()
         {
+            EditorStateMachineAsset stateMachineAsset = this.graphView.graphAsset as EditorStateMachineAsset;
+
             OdinMenu odinMenu = new OdinMenu();
             odinMenu.defaultWidth = 300;
 
@@ -84,7 +79,10 @@ namespace Emilia.StateMachine.Editor
 
         private void OnSave()
         {
-            EditorStateMachineUtility.DataBuild(this.stateMachineAsset, (report) => {
+            EditorStateMachineAsset stateMachineAsset = graphView.graphAsset as EditorStateMachineAsset;
+            EditorStateMachineAsset rootStateMachineAsset = stateMachineAsset.GetRootGraphAsset() as EditorStateMachineAsset;
+
+            EditorStateMachineUtility.DataBuild(rootStateMachineAsset, (report) => {
                 if (report.result == BuildResult.Succeeded) graphView.window.ShowNotification(new GUIContent("保存成功"), 1.5f);
             });
         }

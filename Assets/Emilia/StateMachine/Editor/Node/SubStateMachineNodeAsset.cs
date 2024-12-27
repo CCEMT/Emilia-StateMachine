@@ -55,7 +55,7 @@ namespace Emilia.StateMachine.Editor
     public class SubStateMachineNodeView : StateNodeView
     {
         private SubStateMachineNodeAsset subStateMachineNodeAsset;
-        protected override EditorPortDirection portDirection => EditorPortDirection.InputOutput;
+        protected override EditorPortDirection portDirection => EditorPortDirection.Any;
 
         public override void Initialize(EditorGraphView graphView, EditorNodeAsset asset)
         {

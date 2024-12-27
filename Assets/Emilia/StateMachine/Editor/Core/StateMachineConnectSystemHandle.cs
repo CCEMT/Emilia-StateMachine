@@ -32,9 +32,9 @@ namespace Emilia.StateMachine.Editor
             if (input != null && output != null) isInversion = input != edgeView.inputPortView && output != edgeView.outputPortView;
 
             bool isInput = (stateMachineEdgeView.inputPortView.portDirection == EditorPortDirection.Input ||
-                            stateMachineEdgeView.inputPortView.portDirection == EditorPortDirection.InputOutput) &&
+                            stateMachineEdgeView.inputPortView.portDirection == EditorPortDirection.Any) &&
                            (stateMachineEdgeView.outputPortView.portDirection == EditorPortDirection.Output ||
-                            stateMachineEdgeView.outputPortView.portDirection == EditorPortDirection.InputOutput);
+                            stateMachineEdgeView.outputPortView.portDirection == EditorPortDirection.Any);
 
             if (isInput)
             {
@@ -42,13 +42,13 @@ namespace Emilia.StateMachine.Editor
                 if (isInversion == false) stateMachineEdgeAsset.inputCondition.Add(new StateMachineConditionGroup());
                 else stateMachineEdgeAsset.outputCondition.Add(new StateMachineConditionGroup());
                 edgeView.OnValueChanged();
-                smartValue.UpdateSelectedInspector();
+                smartValue.UpdateSelected();
                 return true;
             }
 
             bool isOutput = stateMachineEdgeView.inputPortView.portDirection == EditorPortDirection.Output && (
                 stateMachineEdgeView.outputPortView.portDirection == EditorPortDirection.Input ||
-                stateMachineEdgeView.outputPortView.portDirection == EditorPortDirection.InputOutput
+                stateMachineEdgeView.outputPortView.portDirection == EditorPortDirection.Any
             );
 
             if (isOutput)
@@ -57,7 +57,7 @@ namespace Emilia.StateMachine.Editor
                 if (isInversion == false) stateMachineEdgeAsset.outputCondition.Add(new StateMachineConditionGroup());
                 else stateMachineEdgeAsset.inputCondition.Add(new StateMachineConditionGroup());
                 edgeView.OnValueChanged();
-                smartValue.UpdateSelectedInspector();
+                smartValue.UpdateSelected();
                 return true;
             }
 
