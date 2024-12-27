@@ -66,7 +66,7 @@ namespace Emilia.StateMachine.Editor
     [EditorNode(typeof(ReferencesNodeAsset))]
     public class ReferencesNodeView : StateMachineNodeView
     {
-        protected override EditorPortDirection portDirection => EditorPortDirection.InputOutput;
+        protected override EditorPortDirection portDirection => EditorPortDirection.Any;
 
         public override void Initialize(EditorGraphView graphView, EditorNodeAsset asset)
         {

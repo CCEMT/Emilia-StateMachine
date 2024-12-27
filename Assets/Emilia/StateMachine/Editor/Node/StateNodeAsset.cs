@@ -81,7 +81,7 @@ namespace Emilia.StateMachine.Editor
     [EditorNode(typeof(StateNodeAsset))]
     public class StateNodeView : StateMachineNodeView
     {
-        protected override EditorPortDirection portDirection => EditorPortDirection.InputOutput;
+        protected override EditorPortDirection portDirection => EditorPortDirection.Any;
         public StateNodeAsset stateNodeAsset { get; private set; }
 
         protected override bool canRename => true;
