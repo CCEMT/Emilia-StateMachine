@@ -1,5 +1,6 @@
 ﻿using System;
 using Emilia.DataBuildPipeline.Editor;
+using Emilia.Node.Editor;
 using UnityEditor;
 
 namespace Emilia.StateMachine.Editor
@@ -13,7 +14,8 @@ namespace Emilia.StateMachine.Editor
             container.editorStateMachineAsset.cache = container.stateMachineAsset;
             container.buildReport.product = container.stateMachineAsset;
 
-            AssetDatabase.SaveAssetIfDirty(container.editorStateMachineAsset);
+            container.editorStateMachineAsset.Save();
+            
             onFinished.Invoke();
         }
     }
