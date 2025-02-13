@@ -1,5 +1,4 @@
 ﻿using System;
-using Emilia.Kit;
 using Emilia.Node.Editor;
 using UnityEngine;
 
@@ -15,9 +14,8 @@ namespace Emilia.StateMachine.Editor
             Type stateMachineAsset = smartValue.graphAsset.GetType();
             stateMachineNodeAsset.editorStateMachineAsset = ScriptableObject.CreateInstance(stateMachineAsset) as EditorStateMachineAsset;
             stateMachineNodeAsset.editorStateMachineAsset.name = string.IsNullOrEmpty(stateMachineNodeAsset.displayName) ? stateMachineNodeAsset.title : stateMachineNodeAsset.displayName;
-            stateMachineNodeAsset.editorStateMachineAsset.parent = smartValue.graphAsset;
 
-            EditorAssetKit.SaveAssetIntoObject(stateMachineNodeAsset.editorStateMachineAsset, smartValue.graphAsset);
+            smartValue.graphAsset.AddChild(stateMachineNodeAsset.editorStateMachineAsset);
         }
     }
 }
