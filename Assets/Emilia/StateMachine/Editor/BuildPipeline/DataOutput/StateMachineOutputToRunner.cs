@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Emilia.DataBuildPipeline.Editor;
+using Emilia.Kit;
 using Emilia.Kit.Editor;
 using Emilia.Variables;
-using GameFrame;
 using UnityEditor;
 using UnityEngine;
 

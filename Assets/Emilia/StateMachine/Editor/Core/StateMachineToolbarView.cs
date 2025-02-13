@@ -2,7 +2,6 @@
 using Emilia.DataBuildPipeline.Editor;
 using Emilia.Kit;
 using Emilia.Node.Attributes;
-using Emilia.Node.Editor;
 using Emilia.Node.Universal.Editor;
 using Emilia.Reflection.Editor;
 using UnityEditor;
@@ -80,7 +79,7 @@ namespace Emilia.StateMachine.Editor
         private void OnSave()
         {
             EditorStateMachineAsset stateMachineAsset = graphView.graphAsset as EditorStateMachineAsset;
-            EditorStateMachineAsset rootStateMachineAsset = stateMachineAsset.GetRootGraphAsset() as EditorStateMachineAsset;
+            EditorStateMachineAsset rootStateMachineAsset = stateMachineAsset.GetRootAsset() as EditorStateMachineAsset;
 
             EditorStateMachineUtility.DataBuild(rootStateMachineAsset, (report) => {
                 if (report.result == BuildResult.Succeeded) graphView.window.ShowNotification(new GUIContent("保存成功"), 1.5f);
