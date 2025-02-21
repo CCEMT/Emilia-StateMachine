@@ -16,9 +16,7 @@ namespace Emilia.StateMachine.Editor
 
         public StateMachineNodeAsset stateMachineNodeAsset { get; private set; }
         protected VisualElement connectorElement { get; private set; }
-
         protected abstract EditorPortDirection portDirection { get; }
-        public override string defaultDisplayName => asset.title;
         public override bool canExpanded => false;
 
         public override void Initialize(EditorGraphView graphView, EditorNodeAsset asset)
