@@ -29,7 +29,7 @@ namespace Emilia.StateMachine.Editor
             {
                 OdinMenu odinMenu = new OdinMenu("选择节点");
 
-                EditorGraphView graphView = EditorGraphView.focusedGraphView;
+                EditorGraphView graphView = EditorGraphView.GetGraphView(graphAsset);
 
                 StateMachineNodeAsset[] stateMachineNodeAssets = graphView.graphAsset.nodes.OfType<StateMachineNodeAsset>().ToArray();
                 int amount = stateMachineNodeAssets.Length;

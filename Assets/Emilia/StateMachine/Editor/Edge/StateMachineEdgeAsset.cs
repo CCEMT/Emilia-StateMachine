@@ -30,7 +30,7 @@ namespace Emilia.StateMachine.Editor
         [OnInspectorGUI, PropertyOrder(-1)]
         public void EditorListDraw()
         {
-            EditorGraphView graphView = EditorGraphView.focusedGraphView;
+            EditorGraphView graphView = EditorGraphView.GetGraphView(graphAsset);
             if (graphView == null) return;
 
             StateMachineEdgeView edgeView = graphView.graphElementCache.edgeViewById.GetValueOrDefault(id) as StateMachineEdgeView;
