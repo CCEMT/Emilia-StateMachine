@@ -86,15 +86,15 @@ namespace Emilia.StateMachine
             for (int i = 0; i < amount; i++)
             {
                 ICondition condition = _conditions[i];
-                ReferencePool.Release(condition);
+                condition.Dispose();
             }
 
             ReferencePool.Release(this);
         }
 
-        public void Clear()
+        void IReference.Clear()
         {
-            _asset = default;
+            _asset = null;
             _conditions.Clear();
         }
     }

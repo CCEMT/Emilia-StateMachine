@@ -104,9 +104,9 @@ namespace Emilia.StateMachine
             if (this.runComponent != null) this.runComponent.Exit(stateMachine);
         }
 
-        public override void Dispose(StateMachine stateMachine)
+        protected override void OnDispose(StateMachine stateMachine)
         {
-            base.Dispose(stateMachine);
+            base.OnDispose(stateMachine);
             runIndex = -1;
             int amount = components.Count;
             for (int i = 0; i < amount; i++)

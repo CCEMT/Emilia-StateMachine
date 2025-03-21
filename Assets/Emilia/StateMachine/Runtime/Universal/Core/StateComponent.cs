@@ -40,12 +40,10 @@ namespace Emilia.StateMachine
             this.stateComponentAsset = stateComponentAsset;
             this.stateMachine = stateMachine;
             this.owner = stateMachine.owner;
-            asset = stateComponentAsset as T;
+            this.asset = stateComponentAsset as T;
 
             OnInit();
         }
-
-        protected virtual void OnInit() { }
 
         public virtual void Enter(StateMachine stateMachine) { }
 
@@ -53,8 +51,22 @@ namespace Emilia.StateMachine
 
         public virtual void Exit(StateMachine stateMachine) { }
 
-        public virtual void Dispose(StateMachine stateMachine) { }
+        public void Dispose(StateMachine stateMachine)
+        {
+            OnDispose(this.stateMachine);
 
-        public virtual void Clear() { }
+            ReferencePool.Release(this);
+        }
+
+        void IReference.Clear()
+        {
+            this.stateComponentAsset = null;
+            this.stateMachine = null;
+            this.owner = null;
+            this.asset = null;
+        }
+
+        protected virtual void OnInit() { }
+        protected virtual void OnDispose(StateMachine stateMachine) { }
     }
 }

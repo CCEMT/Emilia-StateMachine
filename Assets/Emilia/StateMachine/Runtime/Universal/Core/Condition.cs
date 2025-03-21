@@ -28,8 +28,20 @@ namespace Emilia.StateMachine
             OnInit();
         }
 
-        protected virtual void OnInit() { }
         public abstract bool IsSuccess(StateMachine stateMachine);
-        public virtual void Clear() { }
+
+        public void Dispose()
+        {
+            OnDispose();
+            ReferencePool.Release(this);
+        }
+
+        void IReference.Clear()
+        {
+            asset = null;
+        }
+
+        protected virtual void OnInit() { }
+        protected virtual void OnDispose() { }
     }
 }

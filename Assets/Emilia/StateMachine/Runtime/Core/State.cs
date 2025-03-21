@@ -67,7 +67,7 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 初始化状态
         /// </summary>
-        public virtual void Init(StateAsset stateAsset, StateMachine stateMachine)
+        public void Init(StateAsset stateAsset, StateMachine stateMachine)
         {
             this._asset = stateAsset;
             _stateComponents.Clear();
@@ -80,7 +80,7 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 初始化组件
         /// </summary>
-        protected void InitComponent(StateMachine stateMachine)
+        private void InitComponent(StateMachine stateMachine)
         {
             int amount = this._asset.componentAssets.Count;
             for (int i = 0; i < amount; i++)
@@ -95,7 +95,7 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 初始化Transform
         /// </summary>
-        protected void InitTransform()
+        private void InitTransform()
         {
             int amount = this._asset.transitionAssets.Count;
             for (int i = 0; i < amount; i++)
@@ -172,7 +172,6 @@ namespace Emilia.StateMachine
             {
                 IStateComponent component = this._stateComponents[i];
                 component.Dispose(stateMachine);
-                ReferencePool.Release(component);
             }
 
             int transformAmount = this._transforms.Count;
@@ -188,9 +187,9 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 清理状态
         /// </summary>
-        public void Clear()
+        void IReference.Clear()
         {
-            this._asset = default;
+            this._asset = null;
             this._stateComponents.Clear();
             this._transforms.Clear();
         }
