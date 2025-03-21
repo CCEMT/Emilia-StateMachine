@@ -233,7 +233,7 @@ namespace Emilia.StateMachine
             ReferencePool.Release(this);
         }
 
-        public void Clear()
+        void IReference.Clear()
         {
             uid = -1;
             asset = default;

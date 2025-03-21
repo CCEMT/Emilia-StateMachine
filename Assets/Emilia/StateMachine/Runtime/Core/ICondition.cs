@@ -27,5 +27,7 @@ namespace Emilia.StateMachine
         /// 是否满足条件
         /// </summary>
         bool IsSuccess(StateMachine stateMachine);
+
+        void Dispose();
     }
 }
