@@ -236,9 +236,14 @@ namespace Emilia.StateMachine
         void IReference.Clear()
         {
             uid = -1;
-            asset = default;
-            currentState = default;
-            userData = default;
+            asset = null;
+            owner = null;
+
+            parentStateMachine = null;
+            children.Clear();
+            
+            currentState = null;
+            userData = null;
 
             userVariablesManage.Clear();
             stateVariablesManage.Clear();
