@@ -2,7 +2,6 @@
 using System.Linq;
 using Emilia.DataBuildPipeline.Editor;
 using Emilia.Node.Editor;
-using Emilia.Variables;
 
 namespace Emilia.StateMachine.Editor
 {

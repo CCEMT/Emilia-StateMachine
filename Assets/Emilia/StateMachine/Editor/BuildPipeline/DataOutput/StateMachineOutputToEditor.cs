@@ -1,7 +1,6 @@
 ﻿using System;
 using Emilia.DataBuildPipeline.Editor;
 using Emilia.Node.Editor;
-using UnityEditor;
 
 namespace Emilia.StateMachine.Editor
 {
@@ -15,7 +14,7 @@ namespace Emilia.StateMachine.Editor
             container.buildReport.product = container.stateMachineAsset;
 
             container.editorStateMachineAsset.Save();
-            
+
             onFinished.Invoke();
         }
     }
