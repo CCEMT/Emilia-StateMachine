@@ -12,7 +12,7 @@ namespace Emilia.StateMachine.Editor
 
         public VariablesManage variablesManage { get; set; }
         public List<StateAsset> stateAssets { get; set; }
-        
+
         public StateMachineAsset stateMachineAsset { get; set; }
     }
 }

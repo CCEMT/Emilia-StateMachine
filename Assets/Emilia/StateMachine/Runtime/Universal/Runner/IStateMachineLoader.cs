@@ -8,7 +8,7 @@ namespace Emilia.StateMachine
         /// 运行时文件路径
         /// </summary>
         string runtimeFilePath { get; }
-        
+
         /// <summary>
         /// 编辑器文件路径
         /// </summary>
@@ -18,7 +18,7 @@ namespace Emilia.StateMachine
         /// 加载资源
         /// </summary>
         Object LoadAsset(string path);
-        
+
         /// <summary>
         /// 加载状态机资源（反序列化）
         /// </summary>

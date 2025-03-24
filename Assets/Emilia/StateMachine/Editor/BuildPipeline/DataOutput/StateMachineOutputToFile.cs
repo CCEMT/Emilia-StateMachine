@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Emilia.DataBuildPipeline.Editor;
 using Emilia.Kit;
-using Emilia.Kit.Editor;
 using Sirenix.Serialization;
 using UnityEditor;
 using UnityEngine;
@@ -28,7 +27,7 @@ namespace Emilia.StateMachine.Editor
             string path = $"{dataPathNoAssets}/{args.outputPath}/{container.editorStateMachineAsset.name}.bytes";
 
             onFinished.Invoke();
-            
+
             Task.Run(() => {
                 if (File.Exists(path)) File.Delete(path);
                 byte[] bytes = TagSerializationUtility.IgnoreTagSerializeValue(container.stateMachineAsset, DataFormat.Binary, SerializeTagDefine.DefaultIgnoreTag);

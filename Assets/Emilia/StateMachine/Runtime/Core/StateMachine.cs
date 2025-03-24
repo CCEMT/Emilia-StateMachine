@@ -241,7 +241,7 @@ namespace Emilia.StateMachine
 
             parentStateMachine = null;
             children.Clear();
-            
+
             currentState = null;
             userData = null;
 

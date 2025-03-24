@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Emilia.Node.Editor;
-using Emilia.Node.Universal.Editor;
 using UnityEditor;
 using UnityEngine;
 
