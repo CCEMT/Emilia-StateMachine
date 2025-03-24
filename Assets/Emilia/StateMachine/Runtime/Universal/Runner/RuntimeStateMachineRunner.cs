@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Emilia.StateMachine
 {
-    public class RuntimeStateMachineRunner : IStateMachineRunner
+    public class RuntimeStateMachineRunner : IStateMachineRunner, IReference
     {
         private IStateMachineLoader stateMachineLoader;
         private StateMachine _stateMachine;
@@ -49,12 +49,17 @@ namespace Emilia.StateMachine
 
         public void Dispose()
         {
+            _stateMachine?.Dispose();
+            ReferencePool.Release(this);
+        }
+
+        void IReference.Clear()
+        {
             StateMachineRunnerUtility.RecycleId(uid);
             uid = -1;
 
-            if (_stateMachine == default) return;
-            _stateMachine.Dispose();
-            _stateMachine = default;
+            _stateMachine = null;
+
         }
     }
 }

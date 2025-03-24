@@ -1,4 +1,8 @@
-﻿using System;
+﻿#if !UNITY_EDITOR
+using Emilia.Reference;
+#endif
+
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -26,7 +30,7 @@ namespace Emilia.StateMachine
             Type type = Assembly.Load("Emilia.StateMachine.Editor").GetType("Emilia.StateMachine.Editor.EditorStateMachineRunner");
             return Activator.CreateInstance(type) as IStateMachineRunner;
 #else
-            return new UniversalStateMachineRunner();
+            return ReferencePool.Acquire<RuntimeStateMachineRunner>();
 #endif
         }
     }
