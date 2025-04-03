@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Emilia.StateMachine.Editor
 {
-    [BuildPipeline(StateMachineBuildPipeline.PipelineName), BuildSequence(3000)]
+    [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(3000)]
     public class StateMachineOutputToRunner : IDataOutput
     {
         public void Output(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)

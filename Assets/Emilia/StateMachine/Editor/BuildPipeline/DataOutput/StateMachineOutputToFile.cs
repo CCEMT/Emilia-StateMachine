@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Emilia.StateMachine.Editor
 {
-    [BuildPipeline(StateMachineBuildPipeline.PipelineName), BuildSequence(2000)]
+    [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(2000)]
     public class StateMachineOutputToFile : IDataOutput
     {
         public void Output(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)

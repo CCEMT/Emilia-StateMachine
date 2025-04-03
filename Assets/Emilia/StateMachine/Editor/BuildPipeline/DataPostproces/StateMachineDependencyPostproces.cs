@@ -5,7 +5,7 @@ using Sirenix.Utilities;
 
 namespace Emilia.StateMachine.Editor
 {
-    [BuildPipeline(StateMachineBuildPipeline.PipelineName), BuildSequence(1000)]
+    [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(1000)]
     public class StateMachineDependencyPostproces : IDataPostproces
     {
         public void Postprocess(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)

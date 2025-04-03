@@ -24,10 +24,9 @@ namespace Emilia.StateMachine.Editor
             }
 
             AddControl(new ButtonToolbarViewControl("保存", OnSave), ToolbarViewControlPosition.RightOrBottom);
-
         }
 
-        private void OnEditorParameter()
+        protected virtual void OnEditorParameter()
         {
             EditorStateMachineAsset stateMachineAsset = this.graphView.graphAsset as EditorStateMachineAsset;
             EditorParametersManage editorParametersManage = stateMachineAsset.editorParametersManage;
@@ -40,7 +39,7 @@ namespace Emilia.StateMachine.Editor
             Selection.activeObject = editorParametersManage;
         }
 
-        private void OnEditorRuntimeParameter()
+        protected virtual void OnEditorRuntimeParameter()
         {
             GetStateMachineRunnerEvent getStateMachineRunnerEvent = GetStateMachineRunnerEvent.GetPooled();
             getStateMachineRunnerEvent.target = graphView;
@@ -50,7 +49,7 @@ namespace Emilia.StateMachine.Editor
             EditorKit.SetSelection(stateMachineRuntimeParameter, "运行参数");
         }
 
-        private OdinMenu BuildRunnerMenu()
+        protected virtual OdinMenu BuildRunnerMenu()
         {
             EditorStateMachineAsset stateMachineAsset = this.graphView.graphAsset as EditorStateMachineAsset;
 
@@ -77,7 +76,7 @@ namespace Emilia.StateMachine.Editor
             return odinMenu;
         }
 
-        private void OnSave()
+        protected virtual void OnSave()
         {
             EditorStateMachineAsset stateMachineAsset = graphView.graphAsset as EditorStateMachineAsset;
             EditorStateMachineAsset rootStateMachineAsset = stateMachineAsset.GetRootAsset() as EditorStateMachineAsset;

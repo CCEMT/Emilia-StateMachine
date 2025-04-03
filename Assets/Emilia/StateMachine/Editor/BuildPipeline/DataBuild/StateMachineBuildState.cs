@@ -8,7 +8,7 @@ using Unity.EditorCoroutines.Editor;
 
 namespace Emilia.StateMachine.Editor
 {
-    [BuildPipeline(StateMachineBuildPipeline.PipelineName), BuildSequence(2000)]
+    [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(2000)]
     public class StateMachineBuildState : IDataBuild
     {
         class BuildStatePack

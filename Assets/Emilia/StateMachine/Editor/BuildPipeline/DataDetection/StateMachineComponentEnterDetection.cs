@@ -3,7 +3,7 @@ using Emilia.StateMachine.Editor;
 
 namespace Emilia.StateMachineComponent.Editor
 {
-    [BuildPipeline(StateMachineBuildPipeline.PipelineName)]
+    [BuildPipeline(typeof(StateMachineBuildArgs))]
     public class StateMachineComponentEnterDetection : IDataDetection
     {
         public bool Detection(IBuildContainer buildContainer, IBuildArgs buildArgs)

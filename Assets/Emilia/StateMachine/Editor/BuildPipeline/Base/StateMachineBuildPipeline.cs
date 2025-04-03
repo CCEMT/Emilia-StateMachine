@@ -5,11 +5,9 @@ using Emilia.Node.Editor;
 
 namespace Emilia.StateMachine.Editor
 {
-    [BuildPipeline(PipelineName)]
+    [BuildPipeline(typeof(StateMachineBuildArgs))]
     public class StateMachineBuildPipeline : UniversalBuildPipeline
     {
-        public const string PipelineName = "StateMachine";
-
         private StateMachineBuildArgs stateMachineBuildArgs;
 
         protected override void RunInitialize()
