@@ -6,7 +6,7 @@ using Sirenix.Serialization;
 
 namespace Emilia.StateMachine.Editor
 {
-    [BuildPipeline(StateMachineBuildPipeline.PipelineName), BuildSequence(3000)]
+    [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(3000)]
     public class StateMachineBuildTransition : IDataBuild
     {
         public void Build(IBuildContainer buildContainer, Action onFinished)

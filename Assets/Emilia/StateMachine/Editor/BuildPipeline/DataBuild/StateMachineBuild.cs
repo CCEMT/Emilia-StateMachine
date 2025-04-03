@@ -3,7 +3,7 @@ using Emilia.DataBuildPipeline.Editor;
 
 namespace Emilia.StateMachine.Editor
 {
-    [BuildPipeline(StateMachineBuildPipeline.PipelineName), BuildSequence(4000)]
+    [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(4000)]
     public class StateMachineBuild : IDataBuild
     {
         public void Build(IBuildContainer buildContainer, Action onFinished)

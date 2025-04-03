@@ -11,8 +11,6 @@ namespace Emilia.StateMachine.Editor
 
         public StateMachineBuildArgs(EditorStateMachineAsset asset, string outputPath = null, Action<BuildReport> onBuildComplete = null)
         {
-            this.pipelineName = StateMachineBuildPipeline.PipelineName;
-
             this.outputPath = outputPath;
             this.editorAsset = asset;
             this.onBuildComplete = onBuildComplete;

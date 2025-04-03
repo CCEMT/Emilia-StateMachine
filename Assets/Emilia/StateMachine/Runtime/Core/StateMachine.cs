@@ -55,7 +55,11 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 用户数据
         /// </summary>
-        public object userData => this._userData;
+        public object userData
+        {
+            get => this._userData;
+            internal set => this._userData = value;
+        }
 
         public StateMachineAsset(string id, string description, VariablesManage variablesManage, int enterStateId, List<StateAsset> stateAssets, object userData)
         {
