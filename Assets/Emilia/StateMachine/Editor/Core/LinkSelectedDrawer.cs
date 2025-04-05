@@ -18,7 +18,7 @@ namespace Emilia.StateMachine.Editor
             this.linkIcon = ResourceUtility.LoadResource<Texture2D>("StateMachine/Icons/LinkIcon.png");
         }
 
-        public override void SelectedUpdate(List<ISelectable> selection)
+        public override void SelectedUpdate(List<ISelectedHandle> selection)
         {
             RemoveAllLinkIcon();
 
@@ -38,7 +38,7 @@ namespace Emilia.StateMachine.Editor
             }
         }
 
-        private void AddLink(StateNodeView nodeView, EditorStateComponentAsset editorStateComponentAsset, List<ISelectable> selection)
+        private void AddLink(StateNodeView nodeView, EditorStateComponentAsset editorStateComponentAsset, List<ISelectedHandle> selection)
         {
             ILinkState linkState = editorStateComponentAsset.componentAsset as ILinkState;
             if (linkState == null) return;
