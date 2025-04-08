@@ -71,9 +71,9 @@ namespace Emilia.StateMachine.Editor
             if (evt.clickCount == 2) graphView.Reload(subStateMachineNodeAsset.editorStateMachineAsset);
         }
 
-        public override void OnValueChanged()
+        public override void OnValueChanged(bool isSilent = false)
         {
-            base.OnValueChanged();
+            base.OnValueChanged(isSilent);
             subStateMachineNodeAsset.editorStateMachineAsset.name = string.IsNullOrEmpty(subStateMachineNodeAsset.stateName) ? subStateMachineNodeAsset.title : subStateMachineNodeAsset.stateName;
         }
     }
