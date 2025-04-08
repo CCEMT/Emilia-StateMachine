@@ -152,9 +152,9 @@ namespace Emilia.StateMachine.Editor
             styleSheets.Add(styleSheet);
         }
 
-        public override void OnValueChanged()
+        public override void OnValueChanged(bool isSilent = false)
         {
-            base.OnValueChanged();
+            base.OnValueChanged(isSilent);
             UpdateIcon();
             UpdateArrowTransform();
         }
