@@ -93,7 +93,7 @@ namespace Emilia.StateMachine.Editor
                     StateMachineNodeAsset stateMachineNodeAsset = nodeAsset as StateMachineNodeAsset;
                     if (stateMachineNodeAsset == null) continue;
 
-                    StateAsset stateAsset = stateAssets.Find((x) => x.id == stateMachineNodeAsset.stateMachineId);
+                    StateAsset stateAsset = stateAssets.Find((x) => x.stateId == stateMachineNodeAsset.stateMachineId);
                     if (stateAsset == default) continue;
 
                     if (stateMachineNodeAsset.stateMachineId <= 0) continue;
@@ -106,7 +106,7 @@ namespace Emilia.StateMachine.Editor
 
             void AddTransition(StateMachineNodeAsset stateMachineNodeAsset, int nextId, StateMachineConditionGroup stateMachineConditionGroup)
             {
-                StateAsset stateAsset = stateAssets.Find((x) => x.id == stateMachineNodeAsset.stateMachineId);
+                StateAsset stateAsset = stateAssets.Find((x) => x.stateId == stateMachineNodeAsset.stateMachineId);
                 if (stateAsset == default) return;
 
                 TransitionAsset transitionAsset = ToTransitionAsset(nextId, stateMachineConditionGroup);

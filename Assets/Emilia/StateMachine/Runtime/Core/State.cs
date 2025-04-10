@@ -15,15 +15,20 @@ namespace Emilia.StateMachine
         private int _id;
 
         [SerializeField]
+        private int _stateId;
+
+        [SerializeField]
         private List<TransitionAsset> _transitionAssets;
 
         [SerializeField]
         private List<IStateComponentAsset> _componentAssets;
 
+        public int id=> this._id;
+        
         /// <summary>
         /// 状态ID
         /// </summary>
-        public int id => this._id;
+        public int stateId => this._stateId;
 
         /// <summary>
         /// 过渡资产
@@ -35,9 +40,10 @@ namespace Emilia.StateMachine
         /// </summary>
         public IReadOnlyList<IStateComponentAsset> componentAssets => this._componentAssets;
 
-        public StateAsset(int id, List<TransitionAsset> transitionAssets, List<IStateComponentAsset> componentAssets)
+        public StateAsset(int id,int stateId, List<TransitionAsset> transitionAssets, List<IStateComponentAsset> componentAssets)
         {
             this._id = id;
+            this._stateId = stateId;
             this._transitionAssets = transitionAssets;
             this._componentAssets = componentAssets;
         }
@@ -52,7 +58,7 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 状态ID
         /// </summary>
-        public int id => this._asset.id;
+        public int id => this._asset.stateId;
 
         /// <summary>
         /// 组件列表

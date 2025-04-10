@@ -67,7 +67,7 @@ namespace Emilia.StateMachine.Editor
             {
                 StateAsset stateAsset = stateMachine.asset.stateAssets[i];
                 if (stateAsset == default) continue;
-                if (stateMachine.statesMap.ContainsKey(stateAsset.id)) continue;
+                if (stateMachine.statesMap.ContainsKey(stateAsset.stateId)) continue;
                 ReflectUtility.Invoke(stateMachine, "AddState", new object[] {stateAsset});
             }
 
@@ -83,7 +83,7 @@ namespace Emilia.StateMachine.Editor
             {
                 State state = stateMachine.statesList[i];
                 if (state == default) continue;
-                StateAsset stateAsset = stateMachine.asset.stateAssets.FirstOrDefault((asset) => asset.id == state.id);
+                StateAsset stateAsset = stateMachine.asset.stateAssets.FirstOrDefault((asset) => asset.stateId == state.id);
                 if (stateAsset != default) continue;
 
                 List<State> statesList = stateMachine.statesList as List<State>;
@@ -98,7 +98,7 @@ namespace Emilia.StateMachine.Editor
             {
                 State item = stateMachine.statesList[i];
                 if (item == default) continue;
-                StateAsset newAsset = stateMachine.asset.stateAssets.FirstOrDefault((asset) => asset.id == item.id);
+                StateAsset newAsset = stateMachine.asset.stateAssets.FirstOrDefault((asset) => asset.stateId == item.id);
                 if (newAsset == default) continue;
                 item.Dispose(stateMachine);
                 item.Init(newAsset, stateMachine);

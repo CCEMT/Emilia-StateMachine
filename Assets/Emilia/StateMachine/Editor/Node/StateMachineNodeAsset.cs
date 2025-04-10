@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Emilia.Node.Editor;
 using Emilia.Node.Universal.Editor;
+using Emilia.Reflection.Editor;
 using UnityEngine.UIElements;
 
 namespace Emilia.StateMachine.Editor
@@ -29,6 +30,45 @@ namespace Emilia.StateMachine.Editor
             RegisterCallback<GeometryChangedEvent>(OnGeometryChangedEvent);
 
             titleLabel.style.marginRight = 6;
+            ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(OnContextualMenuManipulator);
+            this.AddManipulator(contextualMenuManipulator);
+        }
+
+        protected virtual void OnContextualMenuManipulator(ContextualMenuPopulateEvent evt)
+        {
+            evt.menu.AppendAction($"SkipTo {stateMachineNodeAsset.title}", (_) => OnSkipTo());
+            evt.menu.AppendSeparator();
+        }
+
+        protected virtual bool IsRuntime()
+        {
+            GetStateMachineRunnerEvent getStateMachineRunnerEvent = GetStateMachineRunnerEvent.GetPooled();
+            getStateMachineRunnerEvent.target = graphView;
+
+            graphView.SendEvent_Internal(getStateMachineRunnerEvent, DispatchMode_Internals.Immediate);
+
+            return getStateMachineRunnerEvent.runner != null && getStateMachineRunnerEvent.runner.isActive;
+        }
+
+        protected virtual void OnSkipTo()
+        {
+            GetStateMachineRunnerEvent getStateMachineRunnerEvent = GetStateMachineRunnerEvent.GetPooled();
+            getStateMachineRunnerEvent.target = graphView;
+
+            graphView.SendEvent_Internal(getStateMachineRunnerEvent, DispatchMode_Internals.Immediate);
+
+            EditorStateMachineRunner runner = getStateMachineRunnerEvent.runner;
+            if (runner == null) return;
+
+            EditorStateMachineAsset stateMachineAsset = graphView.graphAsset as EditorStateMachineAsset;
+            if (stateMachineAsset == null) return;
+
+            if (stateMachineAsset.cacheRuntimeByEditorIdMap.TryGetValue(asset.id, out int runtimeId))
+            {
+                State state = runner.stateMachine.statesMap.GetValueOrDefault(runtimeId);
+                if (state == null) return;
+                runner.stateMachine.SwitchState(state.id);
+            }
         }
 
         protected virtual void OnGeometryChangedEvent(GeometryChangedEvent evt)

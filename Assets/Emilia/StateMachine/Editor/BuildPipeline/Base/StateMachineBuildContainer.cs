@@ -9,6 +9,9 @@ namespace Emilia.StateMachine.Editor
         public EditorStateMachineAsset editorStateMachineAsset { get; set; }
         public List<EnterNodeAsset> allEnterNodeAssets { get; set; }
         public List<SubStateMachineNodeAsset> allSubStateMachineNodeAssets { get; set; }
+        
+        public Dictionary<int, string> editorByRuntimeMap { get; set; } = new Dictionary<int, string>();
+        public Dictionary<string, int> runtimeByEditorMap { get; set; } = new Dictionary<string, int>();
 
         public VariablesManage variablesManage { get; set; }
         public List<StateAsset> stateAssets { get; set; }
