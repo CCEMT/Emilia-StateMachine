@@ -36,6 +36,7 @@ namespace Emilia.StateMachine
             string fullPath = $"{this.stateMachineLoader.runtimeFilePath}/{fileName}.bytes";
             TextAsset textAsset = this.stateMachineLoader.LoadAsset(fullPath) as TextAsset;
             StateMachineAsset stateMachineAsset = this.stateMachineLoader.LoadStateMachineAsset(textAsset.bytes);
+            stateMachineLoader.ReleaseAsset(fullPath);
 
             _stateMachine = ReferencePool.Acquire<StateMachine>();
             _stateMachine.Init(uid, stateMachineAsset, owner);
