@@ -7,6 +7,8 @@ namespace Emilia.StateMachine.Editor
     {
         public EditorStateMachineAsset editorAsset;
         public string outputPath;
+        
+        public bool isGenerateFile;
         public bool updateRunner = true;
 
         public StateMachineBuildArgs(EditorStateMachineAsset asset, string outputPath = null, Action<BuildReport> onBuildComplete = null)
@@ -14,6 +16,7 @@ namespace Emilia.StateMachine.Editor
             this.outputPath = outputPath;
             this.editorAsset = asset;
             this.onBuildComplete = onBuildComplete;
+            isGenerateFile = true;
         }
     }
 }

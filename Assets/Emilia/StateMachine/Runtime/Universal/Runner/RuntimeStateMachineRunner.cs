@@ -30,12 +30,18 @@ namespace Emilia.StateMachine
         public void Init(string fileName, IStateMachineLoader loader, object owner)
         {
             this.fileName = fileName;
-            uid = StateMachineRunnerUtility.GetId();
 
             string fullPath = $"{loader.runtimeFilePath}/{fileName}.bytes";
             TextAsset textAsset = loader.LoadAsset(fullPath) as TextAsset;
             StateMachineAsset stateMachineAsset = loader.LoadStateMachineAsset(textAsset.bytes);
             loader.ReleaseAsset(fullPath);
+
+            Init(stateMachineAsset, owner);
+        }
+
+        public void Init(StateMachineAsset stateMachineAsset, object owner = null)
+        {
+            uid = StateMachineRunnerUtility.GetId();
 
             _stateMachine = ReferencePool.Acquire<StateMachine>();
             _stateMachine.Init(uid, stateMachineAsset, owner);
@@ -56,7 +62,7 @@ namespace Emilia.StateMachine
         void IReference.Clear()
         {
             fileName = null;
-            
+
             if (uid != -1) StateMachineRunnerUtility.RecycleId(uid);
             uid = -1;
 

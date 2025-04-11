@@ -14,9 +14,6 @@ namespace Emilia.StateMachine.Editor
         public static IReadOnlyDictionary<int, EditorStateMachineRunner> runnerByUid => _runnerByUid;
 
         private object owner;
-        private IStateMachineLoader stateMachineLoader;
-        private EditorStateMachineAsset _editorStateMachineAsset;
-
         private StateMachine _stateMachine;
 
         public int uid { get; private set; }
@@ -32,8 +29,6 @@ namespace Emilia.StateMachine.Editor
                 return stateMachine.runState == StateMachine.RunState.Running;
             }
         }
-
-        public EditorStateMachineAsset editorStateMachineAsset => _editorStateMachineAsset;
 
         public void Start()
         {
@@ -55,27 +50,30 @@ namespace Emilia.StateMachine.Editor
             try
             {
                 this.fileName = fileName;
-                this.owner = owner;
-                uid = StateMachineRunnerUtility.GetId();
-                stateMachineLoader = loader;
 
                 string fullPath = $"{loader.editorFilePath}/{fileName}.asset";
                 EditorStateMachineAsset loadAsset = AssetDatabase.LoadAssetAtPath<EditorStateMachineAsset>(fullPath);
-                this._editorStateMachineAsset = loadAsset;
-
-                _stateMachine = new StateMachine();
-                _stateMachine.Init(uid, loadAsset.cache, owner);
-
-                if (_runnerByAssetId.ContainsKey(loadAsset.id) == false) _runnerByAssetId.Add(loadAsset.id, new List<EditorStateMachineRunner>());
-                _runnerByAssetId[loadAsset.id].Add(this);
-
-                _runnerByUid[uid] = this;
+                Init(loadAsset.cache, owner);
             }
             catch (Exception e)
             {
                 Debug.LogError($"{owner} Init 时出现错误：\n{e.ToUnityLogString()}");
                 _stateMachine.Dispose();
             }
+        }
+
+        public void Init(StateMachineAsset stateMachineAsset, object owner = null)
+        {
+            uid = StateMachineRunnerUtility.GetId();
+            this.owner = owner;
+            
+            _stateMachine = new StateMachine();
+            _stateMachine.Init(uid, stateMachineAsset, owner);
+
+            if (_runnerByAssetId.ContainsKey(stateMachineAsset.id) == false) _runnerByAssetId.Add(stateMachineAsset.id, new List<EditorStateMachineRunner>());
+            _runnerByAssetId[stateMachineAsset.id].Add(this);
+
+            _runnerByUid[uid] = this;
         }
 
         public void Update()
@@ -105,7 +103,7 @@ namespace Emilia.StateMachine.Editor
 
                 if (_stateMachine == default) return;
 
-                if (_runnerByAssetId.ContainsKey(this._editorStateMachineAsset.id)) _runnerByAssetId[this._editorStateMachineAsset.id].Remove(this);
+                if (_runnerByAssetId.ContainsKey(asset.id)) _runnerByAssetId[asset.id].Remove(this);
 
                 if (isActive) _stateMachine.Dispose();
                 _stateMachine = default;

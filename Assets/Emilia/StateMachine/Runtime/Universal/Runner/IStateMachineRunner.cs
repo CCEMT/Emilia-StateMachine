@@ -11,6 +11,8 @@ namespace Emilia.StateMachine
         bool isActive { get; }
 
         void Init(string fileName, IStateMachineLoader loader, object owner = null);
+        void Init(StateMachineAsset stateMachineAsset, object owner = null);
+
         void Start();
         void Update();
         void Dispose();

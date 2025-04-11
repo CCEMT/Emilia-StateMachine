@@ -9,6 +9,7 @@ namespace Emilia.StateMachine.Editor
     [Serializable]
     public class StateMachineRuntimeParameter
     {
+        private EditorStateMachineAsset editorStateMachineAsset;
         private EditorStateMachineRunner runner;
 
         private Dictionary<string, Variable> _runtimeUserVariables = new Dictionary<string, Variable>();
@@ -23,7 +24,7 @@ namespace Emilia.StateMachine.Editor
 
                 foreach (var variablePair in this.runner.stateMachine.userVariablesManage.variableMap)
                 {
-                    EditorParameter editorParameter = this.runner.editorStateMachineAsset.editorParametersManage.parameters.Find((x) => x.key == variablePair.Key);
+                    EditorParameter editorParameter = editorStateMachineAsset.editorParametersManage.parameters.Find((x) => x.key == variablePair.Key);
                     if (editorParameter == null) continue;
                     _runtimeUserVariables[editorParameter.description] = variablePair.Value;
                 }
@@ -56,9 +57,10 @@ namespace Emilia.StateMachine.Editor
             set { }
         }
 
-        public StateMachineRuntimeParameter(EditorStateMachineRunner runner)
+        public StateMachineRuntimeParameter(EditorStateMachineRunner runner,EditorStateMachineAsset editorStateMachineAsset)
         {
             this.runner = runner;
+            this.editorStateMachineAsset = editorStateMachineAsset;
         }
     }
 }
