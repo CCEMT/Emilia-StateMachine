@@ -3,6 +3,7 @@ namespace Emilia.StateMachine
     public interface IStateMachineRunner
     {
         int uid { get; }
+        string fileName { get; }
 
         StateMachineAsset asset { get; }
         StateMachine stateMachine { get; }
