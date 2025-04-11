@@ -5,10 +5,10 @@ namespace Emilia.StateMachine
 {
     public class RuntimeStateMachineRunner : IStateMachineRunner, IReference
     {
-        private IStateMachineLoader stateMachineLoader;
         private StateMachine _stateMachine;
 
         public int uid { get; private set; }
+        public string fileName { get; private set; }
         public StateMachineAsset asset => _stateMachine.asset;
         public StateMachine stateMachine => _stateMachine;
 
@@ -29,13 +29,19 @@ namespace Emilia.StateMachine
 
         public void Init(string fileName, IStateMachineLoader loader, object owner)
         {
+            this.fileName = fileName;
+
+            string fullPath = $"{loader.runtimeFilePath}/{fileName}.bytes";
+            TextAsset textAsset = loader.LoadAsset(fullPath) as TextAsset;
+            StateMachineAsset stateMachineAsset = loader.LoadStateMachineAsset(textAsset.bytes);
+            loader.ReleaseAsset(fullPath);
+
+            Init(stateMachineAsset, owner);
+        }
+
+        public void Init(StateMachineAsset stateMachineAsset, object owner = null)
+        {
             uid = StateMachineRunnerUtility.GetId();
-
-            stateMachineLoader = loader;
-
-            string fullPath = $"{this.stateMachineLoader.runtimeFilePath}/{fileName}.bytes";
-            TextAsset textAsset = this.stateMachineLoader.LoadAsset(fullPath) as TextAsset;
-            StateMachineAsset stateMachineAsset = this.stateMachineLoader.LoadStateMachineAsset(textAsset.bytes);
 
             _stateMachine = ReferencePool.Acquire<StateMachine>();
             _stateMachine.Init(uid, stateMachineAsset, owner);
@@ -55,7 +61,9 @@ namespace Emilia.StateMachine
 
         void IReference.Clear()
         {
-            StateMachineRunnerUtility.RecycleId(uid);
+            fileName = null;
+
+            if (uid != -1) StateMachineRunnerUtility.RecycleId(uid);
             uid = -1;
 
             _stateMachine = null;

@@ -11,6 +11,8 @@ namespace Emilia.StateMachine.Editor
         {
             StateMachineBuildContainer container = buildContainer as StateMachineBuildContainer;
             container.editorStateMachineAsset.cache = container.stateMachineAsset;
+            container.editorStateMachineAsset.cacheEditorByRuntimeIdMap = container.editorByRuntimeMap;
+            container.editorStateMachineAsset.cacheRuntimeByEditorIdMap = container.runtimeByEditorMap;
             container.buildReport.product = container.stateMachineAsset;
 
             container.editorStateMachineAsset.Save();

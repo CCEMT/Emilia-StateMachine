@@ -62,7 +62,7 @@ namespace Emilia.StateMachine.Editor
 
         private void AddComponent(StateMachineAsset stateMachineAsset, int stateId, IStateComponentAsset componentAsset)
         {
-            StateAsset stateAsset = stateMachineAsset.stateAssets.FirstOrDefault((state) => state.id == stateId);
+            StateAsset stateAsset = stateMachineAsset.stateAssets.FirstOrDefault((state) => state.stateId == stateId);
             if (stateAsset == default) return;
             List<IStateComponentAsset> stateComponentAssets = stateAsset.componentAssets as List<IStateComponentAsset>;
             stateComponentAssets.Add(componentAsset);

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Emilia.Kit;
 using UnityEditor;
+using UnityEngine;
 
 namespace Emilia.StateMachine.Editor
 {
@@ -10,12 +13,11 @@ namespace Emilia.StateMachine.Editor
         public static IReadOnlyDictionary<string, List<EditorStateMachineRunner>> runnerByAssetId => _runnerByAssetId;
         public static IReadOnlyDictionary<int, EditorStateMachineRunner> runnerByUid => _runnerByUid;
 
-        private IStateMachineLoader stateMachineLoader;
-        private EditorStateMachineAsset _editorStateMachineAsset;
-
+        private object owner;
         private StateMachine _stateMachine;
 
         public int uid { get; private set; }
+        public string fileName { get; private set; }
         public StateMachineAsset asset => _stateMachine.asset;
         public StateMachine stateMachine => _stateMachine;
 
@@ -28,28 +30,48 @@ namespace Emilia.StateMachine.Editor
             }
         }
 
-        public EditorStateMachineAsset editorStateMachineAsset => _editorStateMachineAsset;
-
         public void Start()
         {
             if (stateMachine == default) return;
-            stateMachine.Start();
+
+            try
+            {
+                stateMachine.Start();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"{owner} Start 时出现错误：\n{e.ToUnityLogString()}");
+                _stateMachine.Dispose();
+            }
         }
 
         public void Init(string fileName, IStateMachineLoader loader, object owner)
         {
+            try
+            {
+                this.fileName = fileName;
+
+                string fullPath = $"{loader.editorFilePath}/{fileName}.asset";
+                EditorStateMachineAsset loadAsset = AssetDatabase.LoadAssetAtPath<EditorStateMachineAsset>(fullPath);
+                Init(loadAsset.cache, owner);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"{owner} Init 时出现错误：\n{e.ToUnityLogString()}");
+                _stateMachine.Dispose();
+            }
+        }
+
+        public void Init(StateMachineAsset stateMachineAsset, object owner = null)
+        {
             uid = StateMachineRunnerUtility.GetId();
-            stateMachineLoader = loader;
-
-            string fullPath = $"{loader.editorFilePath}/{fileName}.asset";
-            EditorStateMachineAsset loadAsset = AssetDatabase.LoadAssetAtPath<EditorStateMachineAsset>(fullPath);
-            this._editorStateMachineAsset = loadAsset;
-
+            this.owner = owner;
+            
             _stateMachine = new StateMachine();
-            _stateMachine.Init(uid, loadAsset.cache, owner);
+            _stateMachine.Init(uid, stateMachineAsset, owner);
 
-            if (_runnerByAssetId.ContainsKey(loadAsset.id) == false) _runnerByAssetId.Add(loadAsset.id, new List<EditorStateMachineRunner>());
-            _runnerByAssetId[loadAsset.id].Add(this);
+            if (_runnerByAssetId.ContainsKey(stateMachineAsset.id) == false) _runnerByAssetId.Add(stateMachineAsset.id, new List<EditorStateMachineRunner>());
+            _runnerByAssetId[stateMachineAsset.id].Add(this);
 
             _runnerByUid[uid] = this;
         }
@@ -57,22 +79,41 @@ namespace Emilia.StateMachine.Editor
         public void Update()
         {
             if (_stateMachine == default) return;
-            _stateMachine.Update();
+            try
+            {
+                _stateMachine.Update();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"{owner} Update 时出现错误：\n{e.ToUnityLogString()}");
+                _stateMachine.Dispose();
+            }
         }
 
         public void Dispose()
         {
-            if (_runnerByUid.ContainsKey(uid)) _runnerByUid.Remove(uid);
+            try
+            {
+                if (_runnerByUid.ContainsKey(uid)) _runnerByUid.Remove(uid);
 
-            StateMachineRunnerUtility.RecycleId(uid);
-            uid = -1;
+                fileName = null;
 
-            if (_stateMachine == default) return;
+                if (uid != -1) StateMachineRunnerUtility.RecycleId(uid);
+                uid = -1;
 
-            if (_runnerByAssetId.ContainsKey(this._editorStateMachineAsset.id)) _runnerByAssetId[this._editorStateMachineAsset.id].Remove(this);
+                if (_stateMachine == default) return;
 
-            _stateMachine.Dispose();
-            _stateMachine = default;
+                if (_runnerByAssetId.ContainsKey(asset.id)) _runnerByAssetId[asset.id].Remove(this);
+
+                if (isActive) _stateMachine.Dispose();
+                _stateMachine = default;
+
+                this.owner = null;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"{owner} Dispose 时出现错误：\n{e.ToUnityLogString()}");
+            }
         }
     }
 }

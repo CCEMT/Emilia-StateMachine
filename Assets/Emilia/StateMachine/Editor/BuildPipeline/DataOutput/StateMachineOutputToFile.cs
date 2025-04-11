@@ -17,7 +17,7 @@ namespace Emilia.StateMachine.Editor
             StateMachineBuildContainer container = buildContainer as StateMachineBuildContainer;
             StateMachineBuildArgs args = buildArgs as StateMachineBuildArgs;
 
-            if (string.IsNullOrEmpty(args.outputPath))
+            if (args.isGenerateFile == false || string.IsNullOrEmpty(args.outputPath))
             {
                 onFinished.Invoke();
                 return;

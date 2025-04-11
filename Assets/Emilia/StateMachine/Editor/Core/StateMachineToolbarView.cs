@@ -45,7 +45,10 @@ namespace Emilia.StateMachine.Editor
             getStateMachineRunnerEvent.target = graphView;
 
             graphView.SendEvent_Internal(getStateMachineRunnerEvent, DispatchMode_Internals.Immediate);
-            StateMachineRuntimeParameter stateMachineRuntimeParameter = new StateMachineRuntimeParameter(getStateMachineRunnerEvent.runner);
+
+            EditorStateMachineAsset stateMachineAsset = this.graphView.graphAsset as EditorStateMachineAsset;
+            StateMachineRuntimeParameter stateMachineRuntimeParameter = new StateMachineRuntimeParameter(getStateMachineRunnerEvent.runner, stateMachineAsset);
+
             EditorKit.SetSelection(stateMachineRuntimeParameter, "运行参数");
         }
 
@@ -65,7 +68,7 @@ namespace Emilia.StateMachine.Editor
             {
                 EditorStateMachineRunner runner = runners[i];
                 string itemName = runner.stateMachine.owner.ToString();
-                if (string.IsNullOrEmpty(runner.editorStateMachineAsset.description) == false) itemName = $"{runner.editorStateMachineAsset.description}({runner.editorStateMachineAsset.name})";
+                if (string.IsNullOrEmpty(runner.asset.description) == false) itemName = $"{runner.asset.description}({runner.fileName})";
                 odinMenu.AddItem(itemName, () => {
                     SetStateMachineRunnerEvent e = SetStateMachineRunnerEvent.Create(runner);
                     e.target = graphView;

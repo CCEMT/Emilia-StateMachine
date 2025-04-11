@@ -18,6 +18,12 @@ namespace Emilia.StateMachine
         /// 加载资源
         /// </summary>
         Object LoadAsset(string path);
+        
+        
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        void ReleaseAsset(string path);
 
         /// <summary>
         /// 加载状态机资源（反序列化）
