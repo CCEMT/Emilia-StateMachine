@@ -36,7 +36,7 @@ namespace Emilia.StateMachine.Editor
                 EditorAssetKit.SaveAssetIntoObject(editorParametersManage, stateMachineAsset);
             }
 
-            Selection.activeObject = editorParametersManage;
+            graphView.graphSelected.UpdateSelected(new List<ISelectedHandle> {editorParametersManage});
         }
 
         protected virtual void OnEditorRuntimeParameter()
