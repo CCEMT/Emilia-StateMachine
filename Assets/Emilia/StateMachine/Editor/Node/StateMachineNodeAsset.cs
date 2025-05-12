@@ -93,9 +93,9 @@ namespace Emilia.StateMachine.Editor
             return portAssets;
         }
 
-        protected override void AddCustomPortView(IEditorPortView portView, EditorPortInfo info)
+        protected override void AddCustomPortView(int index, IEditorPortView portView, EditorPortInfo info)
         {
-            portNodeBottomContainer.Add(portView.portElement);
+            portNodeBottomContainer.Insert(index, portView.portElement);
         }
     }
 }
