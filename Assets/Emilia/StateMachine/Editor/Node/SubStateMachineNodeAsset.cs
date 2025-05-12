@@ -42,13 +42,6 @@ namespace Emilia.StateMachine.Editor
             list.Add(this._editorStateMachineAsset);
             return list;
         }
-
-        public override void CollectAsset(List<Object> childAssets)
-        {
-            base.CollectAsset(childAssets);
-            EditorStateMachineAsset currentStateMachineAsset = this._editorStateMachineAsset;
-            if (currentStateMachineAsset != null) currentStateMachineAsset.CollectAsset(childAssets);
-        }
     }
 
     [EditorNode(typeof(SubStateMachineNodeAsset))]
