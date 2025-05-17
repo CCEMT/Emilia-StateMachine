@@ -1,25 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Emilia.Kit;
 using Emilia.Node.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace Emilia.StateMachine.Editor
 {
-    public class StateMachineGraphHandle : GraphHandle<EditorStateMachineAsset>
+    [EditorHandle(typeof(EditorStateMachineAsset))]
+    public class StateMachineGraphHandle : GraphHandle
     {
+        private EditorGraphView editorGraphView;
         private EditorStateMachineRunner debugRunner;
         private StateMachineNodeView runningNodeView;
 
-        public override void Initialize(object weakSmartValue)
+        public override void Initialize(EditorGraphView graphView)
         {
-            base.Initialize(weakSmartValue);
-            this.smartValue.RegisterCallback<GetStateMachineRunnerEvent>(OnGetStateMachineRunnerEvent);
-            this.smartValue.RegisterCallback<SetStateMachineRunnerEvent>(OnSetStateMachineRunnerEvent);
+            base.Initialize(graphView);
+            editorGraphView = graphView;
+            graphView.RegisterCallback<GetStateMachineRunnerEvent>(OnGetStateMachineRunnerEvent);
+            graphView.RegisterCallback<SetStateMachineRunnerEvent>(OnSetStateMachineRunnerEvent);
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(EditorGraphView graphView)
         {
+            base.OnUpdate(graphView);
             if (EditorApplication.isPlaying == false)
             {
                 ClearRunner();
@@ -28,13 +33,13 @@ namespace Emilia.StateMachine.Editor
 
             if (this.debugRunner == null)
             {
-                List<EditorStateMachineRunner> runners = EditorStateMachineRunner.runnerByAssetId.GetValueOrDefault(smartValue.graphAsset.id);
+                List<EditorStateMachineRunner> runners = EditorStateMachineRunner.runnerByAssetId.GetValueOrDefault(graphView.graphAsset.id);
                 if (runners != null && runners.Count == 1) this.debugRunner = runners.FirstOrDefault();
             }
             else
             {
-                if (EditorStateMachineRunner.runnerByAssetId.ContainsKey(smartValue.graphAsset.id) == false) ClearRunner();
-                else if (EditorStateMachineRunner.runnerByAssetId[smartValue.graphAsset.id].Contains(this.debugRunner) == false) ClearRunner();
+                if (EditorStateMachineRunner.runnerByAssetId.ContainsKey(graphView.graphAsset.id) == false) ClearRunner();
+                else if (EditorStateMachineRunner.runnerByAssetId[graphView.graphAsset.id].Contains(this.debugRunner) == false) ClearRunner();
             }
 
             DrawDebug();
@@ -69,7 +74,7 @@ namespace Emilia.StateMachine.Editor
             {
                 StateMachine machine = queue.Dequeue();
 
-                if (machine.asset.id == smartValue.graphAsset.id)
+                if (machine.asset.id == editorGraphView.graphAsset.id)
                 {
                     stateMachine = machine;
                     break;
@@ -95,10 +100,10 @@ namespace Emilia.StateMachine.Editor
                 return;
             }
 
-            int nodeViewCount = smartValue.nodeViews.Count;
+            int nodeViewCount = editorGraphView.nodeViews.Count;
             for (int i = 0; i < nodeViewCount; i++)
             {
-                StateMachineNodeView nodeView = smartValue.nodeViews[i] as StateMachineNodeView;
+                StateMachineNodeView nodeView = editorGraphView.nodeViews[i] as StateMachineNodeView;
                 if (nodeView == null) continue;
 
                 if (nodeView.stateMachineNodeAsset.stateMachineId != stateMachine.currentState.id) continue;
