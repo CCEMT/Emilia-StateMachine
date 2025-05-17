@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
+using Emilia.Kit;
 using Emilia.Node.Editor;
+using Emilia.Node.Universal.Editor;
 
 namespace Emilia.StateMachine.Editor
 {
-    public class StateMachineGraphSelectedHandle : GraphSelectedHandle<EditorStateMachineAsset>
+    [EditorHandle(typeof(EditorStateMachineAsset))]
+    public class StateMachineGraphSelectedHandle : UniversalGraphSelectedHandle
     {
-        public override void CollectSelectedDrawer(List<IGraphSelectedDrawer> drawers)
+        public override void CollectSelectedDrawer(EditorGraphView graphView, List<IGraphSelectedDrawer> drawers)
         {
             drawers.Add(new LinkSelectedDrawer());
+
         }
     }
 }

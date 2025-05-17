@@ -1,27 +1,26 @@
 ﻿using System;
+using Emilia.Kit;
 using Emilia.Node.Editor;
 
 namespace Emilia.StateMachine.Editor
 {
-    public class StateMachineConnectSystemHandle : ConnectSystemHandle<EditorStateMachineAsset>
+    [EditorHandle(typeof(EditorStateMachineAsset))]
+    public class StateMachineConnectSystemHandle : ConnectSystemHandle
     {
-        public override Type GetEdgeTypeByPort(IEditorPortView portView)
+        public override Type GetEdgeTypeByPort(EditorGraphView graphView, IEditorPortView portView) => typeof(StateMachineEdgeAsset);
+
+        public override bool BeforeConnect(EditorGraphView graphView, IEditorPortView input, IEditorPortView output)
         {
-            return typeof(StateMachineEdgeAsset);
+            IEditorEdgeView connectEdgeView = graphView.graphElementCache.GetEdgeView(input, output);
+            return AddCondition(graphView, connectEdgeView, input, output);
         }
 
-        public override bool BeforeConnect(IEditorPortView input, IEditorPortView output)
+        public override void AfterConnect(EditorGraphView graphView, IEditorEdgeView edgeView)
         {
-            IEditorEdgeView connectEdgeView = smartValue.graphElementCache.GetEdgeView(input, output);
-            return AddCondition(connectEdgeView, input, output);
+            AddCondition(graphView, edgeView);
         }
 
-        public override void AfterConnect(IEditorEdgeView edgeView)
-        {
-            AddCondition(edgeView);
-        }
-
-        private bool AddCondition(IEditorEdgeView edgeView, IEditorPortView input = null, IEditorPortView output = null)
+        private bool AddCondition(EditorGraphView graphView, IEditorEdgeView edgeView, IEditorPortView input = null, IEditorPortView output = null)
         {
             StateMachineEdgeView stateMachineEdgeView = edgeView as StateMachineEdgeView;
             if (stateMachineEdgeView == null) return false;
@@ -38,11 +37,11 @@ namespace Emilia.StateMachine.Editor
 
             if (isInput)
             {
-                smartValue.RegisterCompleteObjectUndo("Add ConditionGroup");
+                graphView.RegisterCompleteObjectUndo("Add ConditionGroup");
                 if (isInversion == false) stateMachineEdgeAsset.inputCondition.Add(new StateMachineConditionGroup());
                 else stateMachineEdgeAsset.outputCondition.Add(new StateMachineConditionGroup());
                 edgeView.OnValueChanged();
-                smartValue.UpdateSelected();
+                graphView.UpdateSelected();
                 return true;
             }
 
@@ -53,11 +52,11 @@ namespace Emilia.StateMachine.Editor
 
             if (isOutput)
             {
-                smartValue.RegisterCompleteObjectUndo("Add ConditionGroup");
+                graphView.RegisterCompleteObjectUndo("Add ConditionGroup");
                 if (isInversion == false) stateMachineEdgeAsset.outputCondition.Add(new StateMachineConditionGroup());
                 else stateMachineEdgeAsset.inputCondition.Add(new StateMachineConditionGroup());
                 edgeView.OnValueChanged();
-                smartValue.UpdateSelected();
+                graphView.UpdateSelected();
                 return true;
             }
 
