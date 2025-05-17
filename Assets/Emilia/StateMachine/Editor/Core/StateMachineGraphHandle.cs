@@ -2,13 +2,14 @@
 using System.Linq;
 using Emilia.Kit;
 using Emilia.Node.Editor;
+using Emilia.Node.Universal.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace Emilia.StateMachine.Editor
 {
     [EditorHandle(typeof(EditorStateMachineAsset))]
-    public class StateMachineGraphHandle : GraphHandle
+    public class StateMachineGraphHandle : UniversalGraphHandle
     {
         private EditorGraphView editorGraphView;
         private EditorStateMachineRunner debugRunner;

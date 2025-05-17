@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 namespace Emilia.StateMachine.Editor
 {
     [EditorHandle(typeof(EditorStateMachineAsset))]
-    public class StateMachineHotKeysHandle : GraphHotKeysHandle
+    public class StateMachineHotKeysHandle : UniversalGraphHotKeysHandle
     {
         public override void OnKeyDown(EditorGraphView graphView, KeyDownEvent evt)
         {
