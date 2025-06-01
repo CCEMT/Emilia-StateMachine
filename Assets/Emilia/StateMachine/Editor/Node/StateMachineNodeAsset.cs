@@ -83,7 +83,7 @@ namespace Emilia.StateMachine.Editor
         {
             List<EditorPortInfo> portAssets = new List<EditorPortInfo>();
 
-            EditorPortInfo outputPort = new EditorPortInfo();
+            UniversalEditorPortInfo outputPort = new UniversalEditorPortInfo();
             outputPort.id = PortId;
             outputPort.orientation = EditorOrientation.Custom;
             outputPort.direction = portDirection;
