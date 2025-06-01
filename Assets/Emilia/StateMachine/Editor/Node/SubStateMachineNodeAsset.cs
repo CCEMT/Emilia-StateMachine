@@ -38,7 +38,7 @@ namespace Emilia.StateMachine.Editor
 
         public override List<Object> GetChildren()
         {
-            var list = base.GetChildren();
+            List<Object> list = new List<Object>();
             list.Add(this._editorStateMachineAsset);
             return list;
         }

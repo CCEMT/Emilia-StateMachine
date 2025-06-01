@@ -1,11 +1,12 @@
 ﻿using System;
 using Emilia.Kit;
 using Emilia.Node.Editor;
+using Emilia.Node.Universal.Editor;
 
 namespace Emilia.StateMachine.Editor
 {
     [EditorHandle(typeof(EditorStateMachineAsset))]
-    public class StateMachineConnectSystemHandle : ConnectSystemHandle
+    public class StateMachineConnectSystemHandle : UniversalConnectSystemHandle
     {
         public override Type GetEdgeAssetTypeByPort(EditorGraphView graphView, IEditorPortView portView) => typeof(StateMachineEdgeAsset);
 
