@@ -7,7 +7,7 @@ namespace Emilia.StateMachine.Editor
     [EditorHandle(typeof(EditorStateMachineAsset))]
     public class StateMachineConnectSystemHandle : ConnectSystemHandle
     {
-        public override Type GetEdgeTypeByPort(EditorGraphView graphView, IEditorPortView portView) => typeof(StateMachineEdgeAsset);
+        public override Type GetEdgeAssetTypeByPort(EditorGraphView graphView, IEditorPortView portView) => typeof(StateMachineEdgeAsset);
 
         public override bool BeforeConnect(EditorGraphView graphView, IEditorPortView input, IEditorPortView output)
         {
