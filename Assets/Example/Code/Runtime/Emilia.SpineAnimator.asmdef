@@ -1,0 +1,21 @@
+{
+    "name": "Emilia.SpineAnimator",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c456a771040151a47ba4531eaf18d92e",
+        "GUID:68765d262e2128e4ab49c983f3411946",
+        "GUID:72d1fea872bd7a449bf3818f2b0a6708",
+        "GUID:3333d67804e6f9f4ba7ffcc6e72e0d41",
+        "GUID:4aa5afeeaa60506429dcc023eff1bec6",
+        "GUID:b161c419d3a677d499b5e6e5562d8105"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
