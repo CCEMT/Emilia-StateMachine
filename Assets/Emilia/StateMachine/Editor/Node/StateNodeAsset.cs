@@ -27,7 +27,7 @@ namespace Emilia.StateMachine.Editor
         public EditorStateComponentGroup componentGroup = new EditorStateComponentGroup();
 
         public override int stateMachineId => (int) this.stateId;
-        public override string title => "状态节点";
+        protected override string defaultDisplayName => "状态节点";
     }
 
     [Serializable]
