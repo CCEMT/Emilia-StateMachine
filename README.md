@@ -39,8 +39,7 @@ Odin版本：3.1.2+
 
 ## 例子
 
-基于Emilia-StateMachine实现Spine的动画状态机 [SpineAnimator](https://github.com/CCEMT/Emilia-SpineAnimator)  
-![spineAnimator](./doc/spineAnimator.gif)
+基于Emilia-StateMachine实现Spine的动画状态机
 
 ## 开始
 
