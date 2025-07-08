@@ -6,7 +6,7 @@ namespace Emilia.StateMachine.Editor
     [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(4000)]
     public class StateMachineBuild : IDataBuild
     {
-        public void Build(IBuildContainer buildContainer, Action onFinished)
+        public void Build(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)
         {
             StateMachineBuildContainer container = buildContainer as StateMachineBuildContainer;
 
