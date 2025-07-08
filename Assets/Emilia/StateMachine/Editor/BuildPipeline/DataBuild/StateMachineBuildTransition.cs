@@ -9,7 +9,7 @@ namespace Emilia.StateMachine.Editor
     [BuildPipeline(typeof(StateMachineBuildArgs)), BuildSequence(3000)]
     public class StateMachineBuildTransition : IDataBuild
     {
-        public void Build(IBuildContainer buildContainer, Action onFinished)
+        public void Build(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)
         {
             StateMachineBuildContainer container = buildContainer as StateMachineBuildContainer;
             container.stateAssets = BuildTransition(container.editorStateMachineAsset, container.stateAssets);

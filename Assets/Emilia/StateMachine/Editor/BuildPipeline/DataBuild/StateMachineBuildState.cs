@@ -16,7 +16,7 @@ namespace Emilia.StateMachine.Editor
             public StateAsset stateAsset;
         }
 
-        public void Build(IBuildContainer buildContainer, Action onFinished)
+        public void Build(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)
         {
             StateMachineBuildContainer container = buildContainer as StateMachineBuildContainer;
             EditorCoroutineUtility.StartCoroutineOwnerless(OnBuild(container, onFinished));
@@ -45,13 +45,12 @@ namespace Emilia.StateMachine.Editor
                 if (buildStatePack.stateAsset == default) continue;
 
                 stateAssets.Add(buildStatePack.stateAsset);
-                
+
                 container.editorByRuntimeMap[buildStatePack.stateAsset.id] = editorNodeAsset.id;
                 container.runtimeByEditorMap[editorNodeAsset.id] = buildStatePack.stateAsset.id;
             }
 
             container.stateAssets = stateAssets;
-        
 
             onFinished?.Invoke();
         }
