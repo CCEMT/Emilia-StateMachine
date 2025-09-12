@@ -19,7 +19,7 @@ namespace Emilia.StateMachine
         private string _description;
 
         [SerializeField]
-        private VariablesManage _variablesManage;
+        private VariablesManager _variablesManage;
 
         [SerializeField]
         private int _enterStateId;
@@ -40,7 +40,7 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 参数
         /// </summary>
-        public VariablesManage variablesManage => this._variablesManage;
+        public VariablesManager variablesManage => this._variablesManage;
 
         /// <summary>
         /// 进入状态Id
@@ -61,7 +61,7 @@ namespace Emilia.StateMachine
             internal set => this._userData = value;
         }
 
-        public StateMachineAsset(string id, string description, VariablesManage variablesManage, int enterStateId, List<StateAsset> stateAssets, object userData)
+        public StateMachineAsset(string id, string description, VariablesManager variablesManage, int enterStateId, List<StateAsset> stateAssets, object userData)
         {
             this._id = id;
             this._description = description;
@@ -115,7 +115,7 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 用户定义的参数
         /// </summary>
-        public VariablesManage userVariablesManage { get; private set; }
+        public VariablesManager userVariablesManage { get; private set; }
 
         /// <summary>
         /// 用户数据
@@ -135,12 +135,12 @@ namespace Emilia.StateMachine
         /// <summary>
         /// 当前状态参数（内置）（状态切换时参数会被清理）
         /// </summary>
-        public VariablesManage stateVariablesManage { get; private set; } = new VariablesManage();
+        public VariablesManager stateVariablesManage { get; private set; } = new VariablesManager();
 
         /// <summary>
         /// 状态机参数（内置）
         /// </summary>
-        public VariablesManage stateMachineVariablesManage { get; private set; } = new VariablesManage();
+        public VariablesManager stateMachineVariablesManage { get; private set; } = new VariablesManager();
 
         public IReadOnlyList<State> statesList => this._statesList;
         public IReadOnlyDictionary<int, State> statesMap => this._statesMap;
@@ -161,7 +161,7 @@ namespace Emilia.StateMachine
             stateVariablesManage.Clear();
             stateMachineVariablesManage.Clear();
 
-            if (parentStateMachine != null) userVariablesManage.parentManage = parentStateMachine.userVariablesManage;
+            if (parentStateMachine != null) userVariablesManage.parentManager = parentStateMachine.userVariablesManage;
 
             InitState();
         }

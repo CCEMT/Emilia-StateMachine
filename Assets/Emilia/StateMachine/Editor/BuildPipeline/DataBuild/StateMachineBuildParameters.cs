@@ -10,10 +10,10 @@ namespace Emilia.StateMachine.Editor
         public void Build(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)
         {
             StateMachineBuildContainer container = buildContainer as StateMachineBuildContainer;
-            if (container.editorStateMachineAsset.editorParametersManage == null) container.variablesManage = new VariablesManage();
+            if (container.editorStateMachineAsset.editorParametersManage == null) container.variablesManage = new VariablesManager();
             else
             {
-                VariablesManage rootVariablesManage = container.editorStateMachineAsset.editorParametersManage.ToParametersManage();
+                VariablesManager rootVariablesManage = container.editorStateMachineAsset.editorParametersManage.ToParametersManage();
                 container.variablesManage = rootVariablesManage;
             }
 
