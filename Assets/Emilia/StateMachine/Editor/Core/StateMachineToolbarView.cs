@@ -29,10 +29,10 @@ namespace Emilia.StateMachine.Editor
         protected virtual void OnEditorParameter()
         {
             EditorStateMachineAsset stateMachineAsset = this.graphView.graphAsset as EditorStateMachineAsset;
-            EditorParametersManage editorParametersManage = stateMachineAsset.editorParametersManage;
+            EditorParametersManager editorParametersManage = stateMachineAsset.editorParametersManage;
             if (editorParametersManage == null)
             {
-                editorParametersManage = stateMachineAsset.editorParametersManage = ScriptableObject.CreateInstance<EditorParametersManage>();
+                editorParametersManage = stateMachineAsset.editorParametersManage = ScriptableObject.CreateInstance<EditorParametersManager>();
                 EditorAssetKit.SaveAssetIntoObject(editorParametersManage, stateMachineAsset);
             }
 

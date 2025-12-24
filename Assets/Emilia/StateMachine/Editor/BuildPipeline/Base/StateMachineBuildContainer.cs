@@ -13,7 +13,7 @@ namespace Emilia.StateMachine.Editor
         public Dictionary<int, string> editorByRuntimeMap { get; set; } = new Dictionary<int, string>();
         public Dictionary<string, int> runtimeByEditorMap { get; set; } = new Dictionary<string, int>();
 
-        public VariablesManage variablesManage { get; set; }
+        public VariablesManager variablesManage { get; set; }
         public List<StateAsset> stateAssets { get; set; }
 
         public StateMachineAsset stateMachineAsset { get; set; }
