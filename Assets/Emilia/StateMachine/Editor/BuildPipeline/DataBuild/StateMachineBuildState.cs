@@ -26,7 +26,7 @@ namespace Emilia.StateMachine.Editor
         {
             EditorStateMachineAsset editorStateMachineAsset = container.editorStateMachineAsset;
 
-            List<StateAsset> stateAssets = new List<StateAsset>();
+            List<StateAsset> stateAssets = new();
 
             int id = 0;
 
@@ -34,13 +34,14 @@ namespace Emilia.StateMachine.Editor
             for (int i = 0; i < amount; i++)
             {
                 EditorNodeAsset editorNodeAsset = editorStateMachineAsset.nodes[i];
+                if (editorNodeAsset.graphAsset == null) editorNodeAsset.graphAsset = editorStateMachineAsset;
 
                 StateMachineNodeAsset stateMachineNodeAsset = editorNodeAsset as StateMachineNodeAsset;
                 if (stateMachineNodeAsset == default) continue;
 
                 id++;
 
-                BuildStatePack buildStatePack = new BuildStatePack();
+                BuildStatePack buildStatePack = new();
                 yield return ToStateAsset(id, stateMachineNodeAsset, buildStatePack);
                 if (buildStatePack.stateAsset == default) continue;
 
@@ -79,7 +80,7 @@ namespace Emilia.StateMachine.Editor
             StateAsset stateAsset = ToStateAsset(id, subStateMachineNodeAsset);
 
             BuildReport buildReport = null;
-            StateMachineBuildArgs args = new StateMachineBuildArgs(subStateMachineNodeAsset.editorStateMachineAsset, onBuildComplete: (x) => { buildReport = x; });
+            StateMachineBuildArgs args = new(subStateMachineNodeAsset.editorStateMachineAsset, onBuildComplete: (x) => { buildReport = x; });
             args.updateRunner = false;
 
             DataBuildUtility.Build(args);
@@ -91,7 +92,7 @@ namespace Emilia.StateMachine.Editor
             StateMachineAsset stateMachineAsset = buildReport.product as StateMachineAsset;
             if (stateMachineAsset == default) yield break;
 
-            SubStateMachineComponentAsset subStateMachineComponentAsset = new SubStateMachineComponentAsset();
+            SubStateMachineComponentAsset subStateMachineComponentAsset = new();
             subStateMachineComponentAsset.stateMachineAsset = stateMachineAsset;
 
             List<IStateComponentAsset> componentAsset = stateAsset.componentAssets as List<IStateComponentAsset>;
@@ -102,7 +103,7 @@ namespace Emilia.StateMachine.Editor
 
         private StateAsset ToStateAsset(int id, StateNodeAsset stateNodeAsset)
         {
-            List<IStateComponentAsset> stateComponentAssets = new List<IStateComponentAsset>();
+            List<IStateComponentAsset> stateComponentAssets = new();
 
             int amount = stateNodeAsset.componentGroup.componentAssets.Count;
             for (int i = 0; i < amount; i++)
@@ -117,20 +118,20 @@ namespace Emilia.StateMachine.Editor
                 stateComponentAssets.Add(copyStateComponentAsset);
             }
 
-            StateAsset stateAsset = new StateAsset(id, stateNodeAsset.stateMachineId, new List<TransitionAsset>(), stateComponentAssets);
+            StateAsset stateAsset = new(id, stateNodeAsset.stateMachineId, new List<TransitionAsset>(), stateComponentAssets);
             return stateAsset;
         }
 
         private StateAsset ToEnterState(int id, EnterNodeAsset enterNodeAsset)
         {
-            StateAsset stateAsset = new StateAsset(id, enterNodeAsset.stateMachineId, new List<TransitionAsset>(), new List<IStateComponentAsset>());
+            StateAsset stateAsset = new(id, enterNodeAsset.stateMachineId, new List<TransitionAsset>(), new List<IStateComponentAsset>());
             return stateAsset;
         }
 
         private StateAsset ToExitState(int id, ExitNodeAsset exitNodeAsset)
         {
-            ExitComponentAsset exitComponentAsset = new ExitComponentAsset();
-            StateAsset stateAsset = new StateAsset(id, exitNodeAsset.stateMachineId, new List<TransitionAsset>(), new List<IStateComponentAsset> {exitComponentAsset});
+            ExitComponentAsset exitComponentAsset = new();
+            StateAsset stateAsset = new(id, exitNodeAsset.stateMachineId, new List<TransitionAsset>(), new List<IStateComponentAsset> {exitComponentAsset});
             return stateAsset;
         }
     }

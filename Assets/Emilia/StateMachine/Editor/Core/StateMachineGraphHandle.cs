@@ -11,14 +11,12 @@ namespace Emilia.StateMachine.Editor
     [EditorHandle(typeof(EditorStateMachineAsset))]
     public class StateMachineGraphHandle : UniversalGraphHandle
     {
-        private EditorGraphView editorGraphView;
         private EditorStateMachineRunner debugRunner;
         private StateMachineNodeView runningNodeView;
 
         public override void Initialize(EditorGraphView graphView)
         {
             base.Initialize(graphView);
-            editorGraphView = graphView;
             graphView.RegisterCallback<GetStateMachineRunnerEvent>(OnGetStateMachineRunnerEvent);
             graphView.RegisterCallback<SetStateMachineRunnerEvent>(OnSetStateMachineRunnerEvent);
         }

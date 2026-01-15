@@ -1,7 +1,7 @@
 ﻿using System;
 using Emilia.DataBuildPipeline.Editor;
 using Emilia.Kit.Editor;
-using Emilia.Node.Editor;
+using UnityEditor;
 
 namespace Emilia.StateMachine.Editor
 {
@@ -11,12 +11,15 @@ namespace Emilia.StateMachine.Editor
         public void Output(IBuildContainer buildContainer, IBuildArgs buildArgs, Action onFinished)
         {
             StateMachineBuildContainer container = buildContainer as StateMachineBuildContainer;
+            StateMachineBuildArgs args = buildArgs as StateMachineBuildArgs;
+            
             container.editorStateMachineAsset.cache = container.stateMachineAsset;
             container.editorStateMachineAsset.cacheEditorByRuntimeIdMap = container.editorByRuntimeMap;
             container.editorStateMachineAsset.cacheRuntimeByEditorIdMap = container.runtimeByEditorMap;
             container.buildReport.product = container.stateMachineAsset;
 
-            container.editorStateMachineAsset.SaveAll();
+            container.editorStateMachineAsset.SetDirtyAll();
+            if (args.isSaveAsset) AssetDatabase.SaveAssets();
 
             onFinished.Invoke();
         }

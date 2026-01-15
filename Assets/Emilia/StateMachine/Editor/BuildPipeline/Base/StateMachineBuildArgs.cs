@@ -9,14 +9,19 @@ namespace Emilia.StateMachine.Editor
         public string outputPath;
         
         public bool isGenerateFile;
+        public bool isSaveAsset = true;
+        public bool isRefresh = true;
         public bool updateRunner = true;
+        public Action generateFileCallback;
 
         public StateMachineBuildArgs(EditorStateMachineAsset asset, string outputPath = null, Action<BuildReport> onBuildComplete = null)
         {
             this.outputPath = outputPath;
             this.editorAsset = asset;
             this.onBuildComplete = onBuildComplete;
-            isGenerateFile = true;
+            this.isGenerateFile = true;
+            this.isSaveAsset = true;
+            this.isRefresh = true;
         }
     }
 }
