@@ -29,16 +29,26 @@ namespace Emilia.StateMachine.Editor
             onFinished.Invoke();
 
             Task.Run(() => {
-                if (File.Exists(path)) File.Delete(path);
-                byte[] bytes = TagSerializationUtility.IgnoreTagSerializeValue(container.stateMachineAsset, DataFormat.Binary, SerializeTagDefine.DefaultIgnoreTag);
-                File.WriteAllBytes(path, bytes);
-                EditorKit.UnityInvoke(RefreshAssetDatabase);
+                
+                try
+                {
+                    if (File.Exists(path)) File.Delete(path);
+                    byte[] bytes = TagSerializationUtility.IgnoreTagSerializeValue(container.stateMachineAsset, DataFormat.Binary, SerializeTagDefine.DefaultIgnoreTag);
+                    File.WriteAllBytes(path, bytes);
+                    EditorApplication.delayCall += RefreshAssetDatabase;
+                }
+                catch (Exception e)
+                {
+                    EditorApplication.delayCall += () => Debug.LogError(e.ToUnityLogString());
+                }
+                
             });
 
             void RefreshAssetDatabase()
             {
-                AssetDatabase.SaveAssets();
-                AssetDatabase.Refresh();
+                if (args.isSaveAsset) AssetDatabase.SaveAssets();
+                if (args.isRefresh) AssetDatabase.Refresh();
+                args.generateFileCallback?.Invoke();
             }
         }
     }

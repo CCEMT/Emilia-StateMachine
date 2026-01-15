@@ -11,7 +11,7 @@ namespace Emilia.SpineAnimator.Editor
     {
         public SkeletonDataAsset skeletonDataAsset;
         
-        public override string outputFilePath => "Assets/Emilia/SpineAnimator/Resource/Config";
+        public override string outputFilePath => "Assets/Example/Resource/Config";
         public override Type[] stateComponentSubTypes => new[] {typeof(ISpineAnimatorComponentAsset), typeof(IUniversalComponentAsset)};
         public override Type[] conditionSubTypes => new[] {typeof(ISpineAnimatorConditionAsset), typeof(IUniversalConditionAsset)};
     }
