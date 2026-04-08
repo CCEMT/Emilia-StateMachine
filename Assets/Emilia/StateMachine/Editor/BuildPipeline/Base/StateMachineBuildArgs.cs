@@ -9,7 +9,6 @@ namespace Emilia.StateMachine.Editor
         public string outputPath;
         
         public bool isGenerateFile;
-        public bool isRefresh = true;
         public bool updateRunner = true;
         public Action generateFileCallback;
 
@@ -19,7 +18,6 @@ namespace Emilia.StateMachine.Editor
             this.editorAsset = asset;
             this.onBuildComplete = onBuildComplete;
             this.isGenerateFile = true;
-            this.isRefresh = true;
         }
     }
 }
