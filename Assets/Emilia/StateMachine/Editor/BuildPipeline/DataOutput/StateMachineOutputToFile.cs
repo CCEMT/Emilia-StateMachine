@@ -25,7 +25,8 @@ namespace Emilia.StateMachine.Editor
 
             string dataPathNoAssets = Directory.GetParent(Application.dataPath).ToString();
             string path = $"{dataPathNoAssets}/{args.outputPath}/{container.editorStateMachineAsset.name}.bytes";
-
+            string unityPath = $"{args.outputPath}/{container.editorStateMachineAsset.name}.bytes";
+            
             onFinished.Invoke();
 
             Task.Run(() => {
@@ -46,7 +47,7 @@ namespace Emilia.StateMachine.Editor
 
             void RefreshAssetDatabase()
             {
-                AssetDatabase.ImportAsset(path);
+                AssetDatabase.ImportAsset(unityPath);
                 args.generateFileCallback?.Invoke();
             }
         }
